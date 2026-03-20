@@ -8,12 +8,12 @@ import { saveSession, clearSession, getSession } from "../session";
 export function registerAuth(program: Command) {
   const auth = program
     .command("auth")
-    .description("Manage authentication");
+    .description("Manage authentication — login, logout, status");
 
   // clawnect auth login --token <token>
   auth
     .command("login")
-    .description("Authenticate with your install token from clawnect.app")
+    .description("Authenticate with your install token from clawnect.app/dashboard")
     .requiredOption("--token <token>", "Install token from clawnect.app/dashboard")
     .action(async ({ token }: { token: string }) => {
       const spinner = ora("Authenticating...").start();
