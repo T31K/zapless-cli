@@ -13,7 +13,7 @@ import { registerSheets } from "./commands/sheets";
 import { registerSlides } from "./commands/slides";
 import { registerMeet } from "./commands/meet";
 
-const VERSION = "0.2.0";
+const VERSION = "0.2.1";
 
 program
   .name("clawnect")
