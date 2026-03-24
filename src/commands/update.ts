@@ -1,8 +1,7 @@
 import { execSync } from "child_process";
 import chalk from "chalk";
 import ora from "ora";
-
-const INSTALL_URL = "ZAPLESS_SERVER_URL/api/zapless/install.sh";
+import { CONFIG } from "../config";
 
 export function registerUpdate(program: any) {
   program
@@ -12,7 +11,7 @@ export function registerUpdate(program: any) {
       const spinner = ora("Fetching latest version...").start();
       try {
         spinner.text = "Downloading and installing latest zapless...";
-        execSync(`curl -fsSL ${INSTALL_URL} | sh`, { stdio: "pipe" });
+        execSync(`curl -fsSL ${CONFIG.SERVER_URL}/api/zapless/install.sh | sh`, { stdio: "pipe" });
         spinner.succeed(chalk.green("zapless updated successfully"));
         console.log(chalk.dim("Restart your terminal if the version hasn't changed."));
       } catch (err: any) {
