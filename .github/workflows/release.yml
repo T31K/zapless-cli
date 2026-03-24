@@ -23,10 +23,10 @@ jobs:
         run: bun install
 
       - name: Build macOS binary
-        run: bun build src/index.ts --compile --target=bun-darwin-arm64 --outfile dist/zapless-macos
+        run: bun build src/index.ts --compile --target=bun-darwin-arm64 --define "process.env.ZAPLESS_SERVER='${{ secrets.ZAPLESS_SERVER_URL }}'" --outfile dist/zapless-macos
 
       - name: Build Linux binary
-        run: bun build src/index.ts --compile --target=bun-linux-x64 --outfile dist/zapless-linux
+        run: bun build src/index.ts --compile --target=bun-linux-x64 --define "process.env.ZAPLESS_SERVER='${{ secrets.ZAPLESS_SERVER_URL }}'" --outfile dist/zapless-linux
 
       - name: Release
         uses: softprops/action-gh-release@v2
