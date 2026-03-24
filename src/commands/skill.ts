@@ -12,8 +12,8 @@ export function registerSkill(program: Command) {
 
       try {
         const url = app
-          ? `${CONFIG.SERVER_URL}/api/clawnect/skill/${app}`
-          : `${CONFIG.SERVER_URL}/api/clawnect/skill`;
+          ? `${CONFIG.SERVER_URL}/api/zapless/skill/${app}`
+          : `${CONFIG.SERVER_URL}/api/zapless/skill`;
 
         const res = await axios.get(url, {
           params: { token: session.install_token },
@@ -24,7 +24,7 @@ export function registerSkill(program: Command) {
         if (err.response?.status === 404) {
           const msg = app
             ? `App "${app}" not connected or no skill doc available.`
-            : `Token not found. Run: clawnect auth login --token <your_install_token>`;
+            : `Token not found. Run: zapless auth login --token <your_install_token>`;
           console.error(`❌ ${msg}`);
         } else {
           console.error(`❌ ${err.response?.data ?? err.message}`);

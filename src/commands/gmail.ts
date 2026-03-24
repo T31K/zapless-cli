@@ -13,20 +13,20 @@ function authHeaders(token: string) {
 const GMAIL_COMMANDS = `
 Gmail commands:
 
-  clawnect gmail read --limit 10
-  clawnect gmail read --unread
-  clawnect gmail search --query "<query>" [--limit <n>]
-  clawnect gmail get --id <message-id>
-  clawnect gmail send --to <email> --subject "<subject>" --body "<text>"
-  clawnect gmail send --to <email> --subject "<subject>" --body-file <path>
-  clawnect gmail reply --id <message-id> --body "<text>"
-  clawnect gmail forward --id <message-id> --to <email>
-  clawnect gmail mark --id <message-id> --read
-  clawnect gmail mark --id <message-id> --unread
-  clawnect gmail trash --id <message-id>
-  clawnect gmail labels
-  clawnect gmail draft create --to <email> --subject "<subject>" --body "<text>"
-  clawnect gmail draft send --id <draft-id>
+  zapless gmail read --limit 10
+  zapless gmail read --unread
+  zapless gmail search --query "<query>" [--limit <n>]
+  zapless gmail get --id <message-id>
+  zapless gmail send --to <email> --subject "<subject>" --body "<text>"
+  zapless gmail send --to <email> --subject "<subject>" --body-file <path>
+  zapless gmail reply --id <message-id> --body "<text>"
+  zapless gmail forward --id <message-id> --to <email>
+  zapless gmail mark --id <message-id> --read
+  zapless gmail mark --id <message-id> --unread
+  zapless gmail trash --id <message-id>
+  zapless gmail labels
+  zapless gmail draft create --to <email> --subject "<subject>" --body "<text>"
+  zapless gmail draft send --id <draft-id>
 `;
 
 export function registerGmail(program: Command) {
@@ -41,7 +41,7 @@ export function registerGmail(program: Command) {
       console.log(GMAIL_COMMANDS);
     });
 
-  // clawnect gmail send
+  // zapless gmail send
   gmail
     .command("send")
     .description("Send an email on the user's behalf")
@@ -65,7 +65,7 @@ export function registerGmail(program: Command) {
 
       try {
         await axios.post(
-          `${CONFIG.SERVER_URL}/api/clawnect/gmail/send`,
+          `${CONFIG.SERVER_URL}/api/zapless/gmail/send`,
           { to: opts.to, subject: opts.subject, body },
           { headers: authHeaders(session.install_token) }
         );
@@ -77,7 +77,7 @@ export function registerGmail(program: Command) {
       }
     });
 
-  // clawnect gmail read
+  // zapless gmail read
   gmail
     .command("read")
     .description("Read the user's inbox")
@@ -88,7 +88,7 @@ export function registerGmail(program: Command) {
       const spinner = ora("Fetching inbox...").start();
 
       try {
-        const res = await axios.get(`${CONFIG.SERVER_URL}/api/clawnect/gmail/read`, {
+        const res = await axios.get(`${CONFIG.SERVER_URL}/api/zapless/gmail/read`, {
           headers: authHeaders(session.install_token),
           params: { limit: opts.limit, unread: opts.unread ? "true" : undefined },
         });
@@ -114,7 +114,7 @@ export function registerGmail(program: Command) {
       }
     });
 
-  // clawnect gmail search
+  // zapless gmail search
   gmail
     .command("search")
     .description("Search the user's emails using Gmail query syntax")
@@ -125,7 +125,7 @@ export function registerGmail(program: Command) {
       const spinner = ora(`Searching for "${opts.query}"...`).start();
 
       try {
-        const res = await axios.get(`${CONFIG.SERVER_URL}/api/clawnect/gmail/search`, {
+        const res = await axios.get(`${CONFIG.SERVER_URL}/api/zapless/gmail/search`, {
           headers: authHeaders(session.install_token),
           params: { query: opts.query, limit: opts.limit },
         });
@@ -152,7 +152,7 @@ export function registerGmail(program: Command) {
       }
     });
 
-  // clawnect gmail get --id <id>
+  // zapless gmail get --id <id>
   gmail
     .command("get")
     .description("Get the full body of a specific email by ID")
@@ -162,7 +162,7 @@ export function registerGmail(program: Command) {
       const spinner = ora("Fetching email...").start();
 
       try {
-        const res = await axios.get(`${CONFIG.SERVER_URL}/api/clawnect/gmail/get`, {
+        const res = await axios.get(`${CONFIG.SERVER_URL}/api/zapless/gmail/get`, {
           headers: authHeaders(session.install_token),
           params: { id: opts.id },
         });
@@ -184,7 +184,7 @@ export function registerGmail(program: Command) {
       }
     });
 
-  // clawnect gmail reply --id <id> --body <text>
+  // zapless gmail reply --id <id> --body <text>
   gmail
     .command("reply")
     .description("Reply to an email by message ID")
@@ -207,7 +207,7 @@ export function registerGmail(program: Command) {
 
       try {
         const res = await axios.post(
-          `${CONFIG.SERVER_URL}/api/clawnect/gmail/reply`,
+          `${CONFIG.SERVER_URL}/api/zapless/gmail/reply`,
           { id: opts.id, body },
           { headers: authHeaders(session.install_token) }
         );
@@ -219,7 +219,7 @@ export function registerGmail(program: Command) {
       }
     });
 
-  // clawnect gmail forward --id <id> --to <email>
+  // zapless gmail forward --id <id> --to <email>
   gmail
     .command("forward")
     .description("Forward an email to another recipient")
@@ -231,7 +231,7 @@ export function registerGmail(program: Command) {
 
       try {
         const res = await axios.post(
-          `${CONFIG.SERVER_URL}/api/clawnect/gmail/forward`,
+          `${CONFIG.SERVER_URL}/api/zapless/gmail/forward`,
           { id: opts.id, to: opts.to },
           { headers: authHeaders(session.install_token) }
         );
@@ -243,7 +243,7 @@ export function registerGmail(program: Command) {
       }
     });
 
-  // clawnect gmail trash --id <id>
+  // zapless gmail trash --id <id>
   gmail
     .command("trash")
     .description("Move an email to trash")
@@ -254,7 +254,7 @@ export function registerGmail(program: Command) {
 
       try {
         await axios.post(
-          `${CONFIG.SERVER_URL}/api/clawnect/gmail/trash`,
+          `${CONFIG.SERVER_URL}/api/zapless/gmail/trash`,
           { id: opts.id },
           { headers: authHeaders(session.install_token) }
         );
@@ -266,7 +266,7 @@ export function registerGmail(program: Command) {
       }
     });
 
-  // clawnect gmail mark --id <id> --read / --unread
+  // zapless gmail mark --id <id> --read / --unread
   gmail
     .command("mark")
     .description("Mark an email as read or unread")
@@ -286,7 +286,7 @@ export function registerGmail(program: Command) {
 
       try {
         await axios.post(
-          `${CONFIG.SERVER_URL}/api/clawnect/gmail/mark`,
+          `${CONFIG.SERVER_URL}/api/zapless/gmail/mark`,
           { id: opts.id, read },
           { headers: authHeaders(session.install_token) }
         );
@@ -298,7 +298,7 @@ export function registerGmail(program: Command) {
       }
     });
 
-  // clawnect gmail labels
+  // zapless gmail labels
   gmail
     .command("labels")
     .description("List all Gmail labels")
@@ -307,7 +307,7 @@ export function registerGmail(program: Command) {
       const spinner = ora("Fetching labels...").start();
 
       try {
-        const res = await axios.get(`${CONFIG.SERVER_URL}/api/clawnect/gmail/labels`, {
+        const res = await axios.get(`${CONFIG.SERVER_URL}/api/zapless/gmail/labels`, {
           headers: authHeaders(session.install_token),
         });
 
@@ -332,7 +332,7 @@ export function registerGmail(program: Command) {
       }
     });
 
-  // clawnect gmail draft create / send
+  // zapless gmail draft create / send
   const draft = gmail
     .command("draft")
     .description("Manage Gmail drafts");
@@ -360,7 +360,7 @@ export function registerGmail(program: Command) {
 
       try {
         const res = await axios.post(
-          `${CONFIG.SERVER_URL}/api/clawnect/gmail/draft`,
+          `${CONFIG.SERVER_URL}/api/zapless/gmail/draft`,
           { to: opts.to, subject: opts.subject, body },
           { headers: authHeaders(session.install_token) }
         );
@@ -382,7 +382,7 @@ export function registerGmail(program: Command) {
 
       try {
         await axios.post(
-          `${CONFIG.SERVER_URL}/api/clawnect/gmail/draft/send`,
+          `${CONFIG.SERVER_URL}/api/zapless/gmail/draft/send`,
           { id: opts.id },
           { headers: authHeaders(session.install_token) }
         );

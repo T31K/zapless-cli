@@ -12,13 +12,16 @@ import { registerDocs } from "./commands/docs";
 import { registerSheets } from "./commands/sheets";
 import { registerSlides } from "./commands/slides";
 import { registerMeet } from "./commands/meet";
+import { registerGithub } from "./commands/github";
+import { registerSlack } from "./commands/slack";
+import { registerNotion } from "./commands/notion";
 
-const VERSION = "0.2.1";
+const VERSION = "0.3.0";
 
 program
-  .name("clawnect")
+  .name("zapless")
   .description(
-    "Clawnect — Give your OpenClaw agent access to Gmail and more.\n\n" +
+    "Zapless — Give your OpenClaw agent access to Gmail and more.\n\n" +
     "Commands:\n" +
     "  auth login --token <token>   Authenticate with your install token\n" +
     "  auth logout                  Clear local session\n" +
@@ -35,7 +38,7 @@ program
     "  gmail draft create           Create a draft email\n" +
     "  gmail draft send --id <id>   Send a draft\n" +
     "  doctor                       Check session, server, and auth status\n\n" +
-    "Run clawnect <command> --help for usage details."
+    "Run zapless <command> --help for usage details."
   )
   .version(VERSION, "-v, --version", "Show version");
 
@@ -50,5 +53,8 @@ registerDocs(program);
 registerSheets(program);
 registerSlides(program);
 registerMeet(program);
+registerGithub(program);
+registerSlack(program);
+registerNotion(program);
 
 program.parse();

@@ -10,16 +10,16 @@ export function registerAuth(program: Command) {
     .command("auth")
     .description("Manage authentication — login, logout, status");
 
-  // clawnect auth login --token <token>
+  // zapless auth login --token <token>
   auth
     .command("login")
-    .description("Authenticate with your install token from clawnect.app/dashboard")
-    .requiredOption("--token <token>", "Install token from clawnect.app/dashboard")
+    .description("Authenticate with your install token from zapless.app/dashboard")
+    .requiredOption("--token <token>", "Install token from zapless.app/dashboard")
     .action(async ({ token }: { token: string }) => {
       const spinner = ora("Authenticating...").start();
 
       try {
-        const res = await axios.post(`${CONFIG.SERVER_URL}/api/clawnect/auth`, {
+        const res = await axios.post(`${CONFIG.SERVER_URL}/api/zapless/auth`, {
           install_token: token,
         });
 
@@ -32,12 +32,12 @@ export function registerAuth(program: Command) {
         if (connected_apps.length > 0) {
           console.log(`Connected: ${connected_apps.map((a: string) => chalk.cyan(a)).join(", ")}`);
         } else {
-          console.log(chalk.yellow("No apps connected yet. Visit clawnect.app/dashboard to connect apps."));
+          console.log(chalk.yellow("No apps connected yet. Visit zapless.app/dashboard to connect apps."));
         }
       } catch (err: any) {
         spinner.fail("Authentication failed");
         if (err.response?.status === 401) {
-          console.error("❌ Invalid token. Get your token at: clawnect.app/dashboard");
+          console.error("❌ Invalid token. Get your token at: zapless.app/dashboard");
         } else {
           console.error("❌ Server unreachable. Check your connection.");
         }
@@ -45,7 +45,7 @@ export function registerAuth(program: Command) {
       }
     });
 
-  // clawnect auth logout
+  // zapless auth logout
   auth
     .command("logout")
     .description("Clear local session")
@@ -54,7 +54,7 @@ export function registerAuth(program: Command) {
       console.log(chalk.green("✅ Logged out."));
     });
 
-  // clawnect auth status
+  // zapless auth status
   auth
     .command("status")
     .description("Show current user and connected apps")
@@ -62,7 +62,7 @@ export function registerAuth(program: Command) {
       const session = getSession();
 
       if (!session) {
-        console.error("❌ Not authenticated. Run: clawnect auth login <your_install_token>");
+        console.error("❌ Not authenticated. Run: zapless auth login <your_install_token>");
         process.exit(1);
       }
 
@@ -75,7 +75,7 @@ export function registerAuth(program: Command) {
       if (session.connected_apps.length > 0) {
         console.log(`  Apps:   ${session.connected_apps.map(a => chalk.green(a)).join(", ")}`);
       } else {
-        console.log(`  Apps:   ${chalk.yellow("none — visit clawnect.app/dashboard")}`);
+        console.log(`  Apps:   ${chalk.yellow("none — visit zapless.app/dashboard")}`);
       }
     });
 }

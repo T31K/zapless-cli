@@ -16,7 +16,7 @@ export function registerApps(program: Command) {
       const session = requireSession();
 
       try {
-        const res = await axios.post(`${CONFIG.SERVER_URL}/api/clawnect/auth`, {
+        const res = await axios.post(`${CONFIG.SERVER_URL}/api/zapless/auth`, {
           install_token: session.install_token,
         });
 
@@ -27,7 +27,7 @@ export function registerApps(program: Command) {
 
         if (connected_apps.length === 0) {
           console.log(chalk.yellow("No apps connected yet."));
-          console.log(chalk.dim("Visit your Clawnect dashboard to connect apps."));
+          console.log(chalk.dim("Visit your Zapless dashboard to connect apps."));
           return;
         }
 
@@ -38,7 +38,7 @@ export function registerApps(program: Command) {
         console.log();
       } catch (err: any) {
         if (err.response?.status === 401) {
-          console.error("❌ Invalid token. Run: clawnect auth login --token <your_install_token>");
+          console.error("❌ Invalid token. Run: zapless auth login --token <your_install_token>");
         } else {
           console.error("❌ Server unreachable. Check your connection.");
         }

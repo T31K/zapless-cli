@@ -1,16 +1,16 @@
 {
-  "name": "clawnect",
-  "version": "0.2.0",
-  "description": "Give your OpenClaw agent superpowers",
+  "name": "zapless",
+  "version": "0.3.0",
+  "description": "Give your AI agent superpowers",
   "bin": {
-    "clawnect": "./src/index.ts"
+    "zapless": "./src/index.ts"
   },
   "scripts": {
     "dev": "bun run src/index.ts",
-    "build": "bun build src/index.ts --compile --outfile dist/clawnect",
+    "build": "bun build src/index.ts --compile --outfile dist/zapless",
     "start": "bun run src/index.ts"
   },
-  "keywords": ["openclaw", "agent", "gmail", "cli"],
+  "keywords": ["ai-agent", "agent", "gmail", "cli"],
   "author": "t31k",
   "license": "MIT",
   "type": "module",
