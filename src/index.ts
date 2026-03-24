@@ -15,8 +15,9 @@ import { registerMeet } from "./commands/meet";
 import { registerGithub } from "./commands/github";
 import { registerSlack } from "./commands/slack";
 import { registerNotion } from "./commands/notion";
+import { registerUpdate } from "./commands/update";
 
-const VERSION = "0.3.0";
+const VERSION = "0.3.1";
 
 program
   .name("zapless")
@@ -56,5 +57,6 @@ registerMeet(program);
 registerGithub(program);
 registerSlack(program);
 registerNotion(program);
+registerUpdate(program);
 
 program.parse();
