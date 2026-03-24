@@ -96,7 +96,7 @@ Notion commands:
     .command("create")
     .description("Create a new Notion page")
     .requiredOption("--title <title>", "Page title")
-    .requiredOption("--parent <page-id>", "Parent page ID")
+    .option("--parent <page-id>", "Parent page ID (omit to create at workspace root)")
     .option("--content <text>", "Initial page content")
     .action(async (opts) => {
       const session = requireSession();
