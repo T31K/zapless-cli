@@ -7,7 +7,8 @@ export function registerSkill(program: Command) {
   program
     .command("skill [app]")
     .description("Fetch the skill .md for a specific app or all connected apps")
-    .action(async (app?: string) => {
+    .option("--plugin", "Plugin mode — strips Setup section (passes ?mode=plugin to server)")
+    .action(async (app: string | undefined, opts: { plugin?: boolean }) => {
       const session = requireSession();
 
       try {
@@ -16,7 +17,10 @@ export function registerSkill(program: Command) {
           : `${CONFIG.SERVER_URL}/api/zapless/skill`;
 
         const res = await axios.get(url, {
-          params: { token: session.install_token },
+          params: {
+            token: session.install_token,
+            ...(opts.plugin && { mode: "plugin" }),
+          },
         });
 
         process.stdout.write(res.data);
