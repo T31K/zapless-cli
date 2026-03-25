@@ -12,7 +12,8 @@ export function registerApps(program: Command) {
   apps
     .command("list")
     .description("List all connected apps (fetched live from server)")
-    .action(async () => {
+    .option("--json", "Output as JSON array")
+    .action(async (opts: { json?: boolean }) => {
       const session = requireSession();
 
       try {
@@ -24,6 +25,11 @@ export function registerApps(program: Command) {
 
         // Keep session in sync
         saveSession({ ...session, connected_apps, email });
+
+        if (opts.json) {
+          process.stdout.write(JSON.stringify(connected_apps) + "\n");
+          return;
+        }
 
         if (connected_apps.length === 0) {
           console.log(chalk.yellow("No apps connected yet."));
