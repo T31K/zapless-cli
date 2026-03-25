@@ -13,9 +13,15 @@ export function registerAuth(program: Command) {
   // zapless auth login --token <token>
   auth
     .command("login")
-    .description("Authenticate with your install token from zapless.app/dashboard")
-    .requiredOption("--token <token>", "Install token from zapless.app/dashboard")
-    .action(async ({ token }: { token: string }) => {
+    .description("Authenticate with your install token from zapless.com/connect")
+    .option("--token <token>", "Install token from zapless.com/connect")
+    .action(async ({ token }: { token?: string }) => {
+      if (!token) {
+        console.log("Get your token at: https://zapless.com/connect");
+        console.log("Then run: zapless auth login --token <your-token>");
+        return;
+      }
+
       const spinner = ora("Authenticating...").start();
 
       try {
@@ -62,7 +68,7 @@ export function registerAuth(program: Command) {
       const session = getSession();
 
       if (!session) {
-        console.error("❌ Not authenticated. Run: zapless auth login <your_install_token>");
+        console.error("❌ Not authenticated. Run: zapless auth login --token <your-token>\n   Get your token at: https://zapless.com/connect");
         process.exit(1);
       }
 
