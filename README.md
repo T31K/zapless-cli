@@ -1,6 +1,6 @@
 # zapless-cli
 
-> CLI for [Zapless](https://zapless.com) — give your AI agent access to Gmail, GitHub, Slack, Notion and more.
+> CLI for [Zapless](https://zapless.app) — give your AI agent access to Gmail, GitHub, Slack, Notion and more.
 
 ## Install
 
@@ -16,7 +16,7 @@ curl -fsSL https://api.t31k.cloud/api/zapless/install.sh | sh
 
 ## Setup
 
-Get your install token from [zapless.com/dashboard](https://zapless.com/dashboard), then:
+Get your install token from [zapless.app/dashboard](https://zapless.app/dashboard), then:
 
 ```bash
 zapless auth login --token <your-token>

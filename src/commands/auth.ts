@@ -13,11 +13,11 @@ export function registerAuth(program: Command) {
   // zapless auth login --token <token>
   auth
     .command("login")
-    .description("Authenticate with your install token from zapless.com/connect")
-    .option("--token <token>", "Install token from zapless.com/connect")
+    .description("Authenticate with your install token from zapless.app/connect")
+    .option("--token <token>", "Install token from zapless.app/connect")
     .action(async ({ token }: { token?: string }) => {
       if (!token) {
-        console.log("Get your token at: https://zapless.com/connect");
+        console.log("Get your token at: https://zapless.app/connect");
         console.log("Then run: zapless auth login --token <your-token>");
         return;
       }
@@ -68,7 +68,7 @@ export function registerAuth(program: Command) {
       const session = getSession();
 
       if (!session) {
-        console.error("❌ Not authenticated. Run: zapless auth login --token <your-token>\n   Get your token at: https://zapless.com/connect");
+        console.error("❌ Not authenticated. Run: zapless auth login --token <your-token>\n   Get your token at: https://zapless.app/connect");
         process.exit(1);
       }
 
