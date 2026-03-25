@@ -10,52 +10,63 @@ export function registerAuth(program: Command) {
     .command("auth")
     .description("Manage authentication — login, logout, status");
 
-  // zapless auth login --token <token>
+  // zapless auth login
   auth
     .command("login")
-    .description("Authenticate with your install token from zapless.app/connect")
-    .option("--token <token>", "Install token from zapless.app/connect")
-    .action(async ({ token }: { token?: string }) => {
-      if (!token) {
-        const url = "https://zapless.app/connect";
-        console.log(`Opening ${url} ...`);
-        const { execSync } = require("child_process");
-        try {
-          const cmd = process.platform === "darwin" ? "open" : "xdg-open";
-          execSync(`${cmd} ${url}`);
-        } catch {}
-        console.log(`\nIf the browser didn't open, visit: ${url}`);
-        console.log("Then run: zapless auth login --token <your-token>");
-        return;
-      }
+    .description("Authenticate via browser")
+    .action(async () => {
+      const { execSync } = require("child_process");
 
-      const spinner = ora("Authenticating...").start();
-
+      // 1. Create a pending session on the server
+      let sid: string;
       try {
-        const res = await axios.post(`${CONFIG.SERVER_URL}/api/zapless/auth`, {
-          install_token: token,
-        });
-
-        const { connected_apps, email } = res.data;
-
-        saveSession({ install_token: token, connected_apps, email });
-
-        spinner.succeed(chalk.green("Authenticated!"));
-
-        if (connected_apps.length > 0) {
-          console.log(`Connected: ${connected_apps.map((a: string) => chalk.cyan(a)).join(", ")}`);
-        } else {
-          console.log(chalk.yellow("No apps connected yet. Visit zapless.app/dashboard to connect apps."));
-        }
-      } catch (err: any) {
-        spinner.fail("Authentication failed");
-        if (err.response?.status === 401) {
-          console.error("Invalid token. Get your token at: zapless.app/dashboard");
-        } else {
-          console.error("Server unreachable. Check your connection.");
-        }
+        const res = await axios.post(`${CONFIG.SERVER_URL}/api/zapless/auth/start`);
+        sid = res.data.sid;
+      } catch {
+        console.error("Could not reach server. Check your connection.");
         process.exit(1);
       }
+
+      // 2. Open browser to /connect?sid=...
+      const url = `https://zapless.app/connect?sid=${sid}`;
+      console.log(`\nOpening browser to authenticate...\n`);
+      console.log(`  ${url}\n`);
+      try {
+        const cmd = process.platform === "darwin" ? "open" : "xdg-open";
+        execSync(`${cmd} "${url}"`);
+      } catch {}
+
+      // 3. Poll until authorized (10 min timeout)
+      const spinner = ora("Waiting for authorization in browser...").start();
+      const deadline = Date.now() + 10 * 60 * 1000;
+
+      while (Date.now() < deadline) {
+        await new Promise(r => setTimeout(r, 2000));
+        try {
+          const res = await axios.get(`${CONFIG.SERVER_URL}/api/zapless/auth/poll/${sid}`);
+          if (res.data.status === "authorized") {
+            const token = res.data.install_token;
+            // 4. Fetch full session info
+            const me = await axios.post(`${CONFIG.SERVER_URL}/api/zapless/auth`, { install_token: token });
+            saveSession({ install_token: token, connected_apps: me.data.connected_apps, email: me.data.email });
+            spinner.succeed("Authenticated!");
+            if (me.data.connected_apps.length > 0) {
+              console.log(`Connected: ${me.data.connected_apps.map((a: string) => chalk.cyan(a)).join(", ")}`);
+            } else {
+              console.log(chalk.dim("No apps connected yet. Visit zapless.app/dashboard to connect apps."));
+            }
+            return;
+          }
+        } catch (err: any) {
+          if (err.response?.status === 410) {
+            spinner.fail("Session expired. Run zapless auth login to try again.");
+            process.exit(1);
+          }
+        }
+      }
+
+      spinner.fail("Timed out waiting for authorization.");
+      process.exit(1);
     });
 
   // zapless auth logout
@@ -75,7 +86,7 @@ export function registerAuth(program: Command) {
       const session = getSession();
 
       if (!session) {
-        console.error("Not authenticated. Run: zapless auth login --token <your-token>\n   Get your token at: https://zapless.app/connect");
+        console.error("Not authenticated. Run: zapless auth login");
         process.exit(1);
       }
 
