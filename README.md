@@ -5,12 +5,6 @@
 ## Install
 
 ```bash
-npm install -g zapless
-```
-
-Or via the installer:
-
-```bash
 curl -fsSL https://zapless.app/install.sh | sh
 ```
 
