@@ -28,7 +28,7 @@ Drive commands:
   zapless drive upload --file <path>
   zapless drive upload --file <path> --folder <folder-id>
   zapless drive download --id <file-id> --out <path>
-  zapless drive share --id <file-id> --email <email> --role viewer|editor
+  zapless drive share --id <file-id> --email <email> --role viewer|commenter|editor
   zapless drive delete --id <file-id>
 `);
     });
@@ -152,11 +152,14 @@ Drive commands:
     .option("--role <role>", "Permission role: viewer, commenter, editor", "viewer")
     .action(async (opts) => {
       const session = requireSession();
+      // Map human-friendly names to Google Drive API roles
+      const roleMap: Record<string, string> = { viewer: "reader", editor: "writer", commenter: "commenter" };
+      const role = roleMap[opts.role] ?? opts.role;
       const spinner = ora(`Sharing with ${opts.email}...`).start();
       try {
         await axios.post(
           `${CONFIG.SERVER_URL}/api/zapless/drive/share`,
-          { id: opts.id, email: opts.email, role: opts.role },
+          { id: opts.id, email: opts.email, role },
           { headers: authHeaders(session.install_token) }
         );
         spinner.succeed(chalk.green(`Shared with ${opts.email} as ${opts.role}`));
