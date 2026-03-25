@@ -26,7 +26,7 @@ export function clearSession(): void {
 export function requireSession(): Session {
   const session = getSession();
   if (!session) {
-    console.error("❌ Not authenticated. Run: zapless auth login --token <your_install_token>");
+    console.error("Not authenticated. Run: zapless auth login --token <your_install_token>");
     process.exit(1);
   }
   return session;

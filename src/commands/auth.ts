@@ -50,9 +50,9 @@ export function registerAuth(program: Command) {
       } catch (err: any) {
         spinner.fail("Authentication failed");
         if (err.response?.status === 401) {
-          console.error("❌ Invalid token. Get your token at: zapless.app/dashboard");
+          console.error("Invalid token. Get your token at: zapless.app/dashboard");
         } else {
-          console.error("❌ Server unreachable. Check your connection.");
+          console.error("Server unreachable. Check your connection.");
         }
         process.exit(1);
       }
@@ -64,7 +64,7 @@ export function registerAuth(program: Command) {
     .description("Clear local session")
     .action(() => {
       clearSession();
-      console.log(chalk.green("✅ Logged out."));
+      console.log(chalk.green("Logged out."));
     });
 
   // zapless auth status
@@ -75,7 +75,7 @@ export function registerAuth(program: Command) {
       const session = getSession();
 
       if (!session) {
-        console.error("❌ Not authenticated. Run: zapless auth login --token <your-token>\n   Get your token at: https://zapless.app/connect");
+        console.error("Not authenticated. Run: zapless auth login --token <your-token>\n   Get your token at: https://zapless.app/connect");
         process.exit(1);
       }
 

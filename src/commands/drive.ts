@@ -61,7 +61,7 @@ Drive commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list files");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -89,7 +89,7 @@ Drive commands:
         console.log(`ID:       ${chalk.dim(f.id)}`);
       } catch (err: any) {
         spinner.fail("Failed to get file");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -114,7 +114,7 @@ Drive commands:
         spinner.succeed(chalk.green(`Uploaded — ID: ${chalk.cyan(res.data.id)}`));
       } catch (err: any) {
         spinner.fail("Failed to upload file");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -138,7 +138,7 @@ Drive commands:
         spinner.succeed(chalk.green(`Downloaded to ${opts.out}`));
       } catch (err: any) {
         spinner.fail("Failed to download file");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -162,7 +162,7 @@ Drive commands:
         spinner.succeed(chalk.green(`Shared with ${opts.email} as ${opts.role}`));
       } catch (err: any) {
         spinner.fail("Failed to share file");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -183,7 +183,7 @@ Drive commands:
         spinner.succeed(chalk.green("File deleted"));
       } catch (err: any) {
         spinner.fail("Failed to delete file");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });

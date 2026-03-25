@@ -54,7 +54,7 @@ Docs commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list docs");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -79,7 +79,7 @@ Docs commands:
         console.log(d.text || chalk.dim("(empty document)"));
       } catch (err: any) {
         spinner.fail("Failed to get doc");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -101,7 +101,7 @@ Docs commands:
         spinner.succeed(chalk.green(`Doc created — ID: ${chalk.cyan(res.data.id)}`));
       } catch (err: any) {
         spinner.fail("Failed to create doc");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -124,7 +124,7 @@ Docs commands:
         spinner.succeed(chalk.green("Text appended to doc"));
       } catch (err: any) {
         spinner.fail("Failed to append to doc");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });

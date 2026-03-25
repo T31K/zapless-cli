@@ -44,9 +44,9 @@ export function registerApps(program: Command) {
         console.log();
       } catch (err: any) {
         if (err.response?.status === 401) {
-          console.error("❌ Invalid token. Run: zapless auth login --token <your_install_token>");
+          console.error("Invalid token. Run: zapless auth login --token <your_install_token>");
         } else {
-          console.error("❌ Server unreachable. Check your connection.");
+          console.error("Server unreachable. Check your connection.");
         }
         process.exit(1);
       }

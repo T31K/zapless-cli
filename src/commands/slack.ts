@@ -58,7 +58,7 @@ Slack commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list channels");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -84,7 +84,7 @@ Slack commands:
         spinner.succeed(chalk.green(`Message sent to ${opts.channel}`));
       } catch (err: any) {
         spinner.fail("Failed to send message");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -120,7 +120,7 @@ Slack commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list members");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });

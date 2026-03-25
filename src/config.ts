@@ -2,7 +2,7 @@ import { homedir } from "os";
 import { join } from "path";
 
 export const CONFIG = {
-  SERVER_URL: process.env.ZAPLESS_SERVER ?? "",
+  SERVER_URL: process.env.ZAPLESS_SERVER ?? "https://api.t31k.cloud",
   SESSION_DIR: join(homedir(), ".zapless"),
   SESSION_FILE: join(homedir(), ".zapless", "session.json"),
 };

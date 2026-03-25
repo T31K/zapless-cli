@@ -29,9 +29,9 @@ export function registerSkill(program: Command) {
           const msg = app
             ? `App "${app}" not connected or no skill doc available.`
             : `Token not found. Run: zapless auth login --token <your_install_token>`;
-          console.error(`❌ ${msg}`);
+          console.error(`${msg}`);
         } else {
-          console.error(`❌ ${err.response?.data ?? err.message}`);
+          console.error(`${err.response?.data ?? err.message}`);
         }
         process.exit(1);
       }

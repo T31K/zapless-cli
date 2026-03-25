@@ -53,7 +53,7 @@ Slides commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list presentations");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -79,7 +79,7 @@ Slides commands:
         console.log(`ID:     ${chalk.dim(p.id)}`);
       } catch (err: any) {
         spinner.fail("Failed to get presentation");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -101,7 +101,7 @@ Slides commands:
         spinner.succeed(chalk.green(`Presentation created — ID: ${chalk.cyan(res.data.id)}`));
       } catch (err: any) {
         spinner.fail("Failed to create presentation");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });

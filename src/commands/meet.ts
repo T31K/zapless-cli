@@ -56,7 +56,7 @@ Meet commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list meetings");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -84,7 +84,7 @@ Meet commands:
         console.log(`ID:        ${chalk.dim(m.id)}`);
       } catch (err: any) {
         spinner.fail("Failed to get meeting");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -114,7 +114,7 @@ Meet commands:
         console.log(`ID:       ${chalk.dim(res.data.id)}`);
       } catch (err: any) {
         spinner.fail("Failed to create meeting");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });

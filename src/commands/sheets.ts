@@ -59,7 +59,7 @@ Note: --values uses | to separate rows, commas for columns
         });
       } catch (err: any) {
         spinner.fail("Failed to list sheets");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -84,7 +84,7 @@ Note: --values uses | to separate rows, commas for columns
         console.log(`ID:     ${chalk.dim(s.id)}`);
       } catch (err: any) {
         spinner.fail("Failed to get spreadsheet");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -114,7 +114,7 @@ Note: --values uses | to separate rows, commas for columns
         });
       } catch (err: any) {
         spinner.fail("Failed to read sheet");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -136,7 +136,7 @@ Note: --values uses | to separate rows, commas for columns
         spinner.succeed(chalk.green(`Spreadsheet created — ID: ${chalk.cyan(res.data.id)}`));
       } catch (err: any) {
         spinner.fail("Failed to create spreadsheet");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -161,7 +161,7 @@ Note: --values uses | to separate rows, commas for columns
         spinner.succeed(chalk.green("Values written"));
       } catch (err: any) {
         spinner.fail("Failed to write to sheet");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
@@ -186,7 +186,7 @@ Note: --values uses | to separate rows, commas for columns
         spinner.succeed(chalk.green("Values appended"));
       } catch (err: any) {
         spinner.fail("Failed to append to sheet");
-        console.error(`❌ ${err.response?.data?.error ?? err.message}`);
+        console.error(`${err.response?.data?.error ?? err.message}`);
         process.exit(1);
       }
     });
