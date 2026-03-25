@@ -11,7 +11,7 @@ npm install -g zapless
 Or via the installer:
 
 ```bash
-curl -fsSL https://api.t31k.cloud/api/zapless/install.sh | sh
+curl -fsSL https://zapless.app/install.sh | sh
 ```
 
 ## Setup
