@@ -17,7 +17,14 @@ export function registerAuth(program: Command) {
     .option("--token <token>", "Install token from zapless.app/connect")
     .action(async ({ token }: { token?: string }) => {
       if (!token) {
-        console.log("Get your token at: https://zapless.app/connect");
+        const url = "https://zapless.app/connect";
+        console.log(`Opening ${url} ...`);
+        const { execSync } = require("child_process");
+        try {
+          const cmd = process.platform === "darwin" ? "open" : "xdg-open";
+          execSync(`${cmd} ${url}`);
+        } catch {}
+        console.log(`\nIf the browser didn't open, visit: ${url}`);
         console.log("Then run: zapless auth login --token <your-token>");
         return;
       }
