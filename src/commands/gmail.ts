@@ -103,6 +103,7 @@ export function registerGmail(program: Command) {
 
         emails.forEach((email: any, i: number) => {
           console.log(chalk.bold(`\n[${i + 1}] ${email.subject}`));
+          console.log(`    ID:      ${chalk.dim(email.id)}`);
           console.log(`    From:    ${chalk.cyan(email.from)}`);
           console.log(`    Date:    ${chalk.dim(email.date)}`);
           console.log(`    Preview: ${email.snippet}`);
@@ -141,6 +142,7 @@ export function registerGmail(program: Command) {
         console.log(chalk.dim(`Found ${count} result(s):\n`));
         emails.forEach((email: any, i: number) => {
           console.log(chalk.bold(`[${i + 1}] ${email.subject}`));
+          console.log(`    ID:      ${chalk.dim(email.id)}`);
           console.log(`    From:    ${chalk.cyan(email.from)}`);
           console.log(`    Date:    ${chalk.dim(email.date)}`);
           console.log(`    Preview: ${email.snippet}\n`);
