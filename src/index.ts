@@ -17,7 +17,7 @@ import { registerSlack } from "./commands/slack";
 import { registerNotion } from "./commands/notion";
 import { registerUpdate } from "./commands/update";
 
-const VERSION = "0.3.4";
+const VERSION = "0.3.9";
 
 program
   .name("zapless")

@@ -1,6 +1,6 @@
 {
   "name": "zapless",
-  "version": "0.3.7",
+  "version": "0.3.9",
   "description": "Give your AI agent superpowers",
   "bin": {
     "zapless": "./src/index.ts"
