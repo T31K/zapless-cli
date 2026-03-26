@@ -1,3 +1,4 @@
+import { handleApiError } from '../errors';
 import { Command } from "commander";
 import axios from "axios";
 import chalk from "chalk";
@@ -59,7 +60,7 @@ Notion commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list pages");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -87,7 +88,7 @@ Notion commands:
         }
       } catch (err: any) {
         spinner.fail("Failed to get page");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -112,7 +113,7 @@ Notion commands:
         console.log(`ID:  ${chalk.dim(res.data.id)}`);
       } catch (err: any) {
         spinner.fail("Failed to create page");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -147,7 +148,7 @@ Notion commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list databases");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -181,7 +182,7 @@ Notion commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to query database");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });

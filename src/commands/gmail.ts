@@ -1,3 +1,4 @@
+import { handleApiError } from '../errors';
 import { Command } from "commander";
 import axios from "axios";
 import chalk from "chalk";
@@ -72,7 +73,7 @@ export function registerGmail(program: Command) {
         spinner.succeed(chalk.green(`Email sent to ${opts.to}`));
       } catch (err: any) {
         spinner.fail("Failed to send email");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -110,7 +111,7 @@ export function registerGmail(program: Command) {
         });
       } catch (err: any) {
         spinner.fail("Failed to read inbox");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -149,7 +150,7 @@ export function registerGmail(program: Command) {
         });
       } catch (err: any) {
         spinner.fail("Search failed");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -181,7 +182,7 @@ export function registerGmail(program: Command) {
         console.log(`\n${e.body || chalk.dim("(no body)")}`);
       } catch (err: any) {
         spinner.fail("Failed to get email");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -216,7 +217,7 @@ export function registerGmail(program: Command) {
         spinner.succeed(chalk.green(res.data.message));
       } catch (err: any) {
         spinner.fail("Failed to send reply");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -240,7 +241,7 @@ export function registerGmail(program: Command) {
         spinner.succeed(chalk.green(res.data.message));
       } catch (err: any) {
         spinner.fail("Failed to forward email");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -263,7 +264,7 @@ export function registerGmail(program: Command) {
         spinner.succeed(chalk.green("Email moved to trash"));
       } catch (err: any) {
         spinner.fail("Failed to trash email");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -295,7 +296,7 @@ export function registerGmail(program: Command) {
         spinner.succeed(chalk.green(`Email marked as ${read ? "read" : "unread"}`));
       } catch (err: any) {
         spinner.fail("Failed to mark email");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -329,7 +330,7 @@ export function registerGmail(program: Command) {
         }
       } catch (err: any) {
         spinner.fail("Failed to list labels");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -369,7 +370,7 @@ export function registerGmail(program: Command) {
         spinner.succeed(chalk.green(`Draft created — ID: ${chalk.cyan(res.data.id)}`));
       } catch (err: any) {
         spinner.fail("Failed to create draft");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -391,7 +392,7 @@ export function registerGmail(program: Command) {
         spinner.succeed(chalk.green("Draft sent"));
       } catch (err: any) {
         spinner.fail("Failed to send draft");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });

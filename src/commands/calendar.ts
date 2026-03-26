@@ -1,3 +1,4 @@
+import { handleApiError } from '../errors';
 import { Command } from "commander";
 import axios from "axios";
 import chalk from "chalk";
@@ -63,7 +64,7 @@ Calendar commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list events");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -93,7 +94,7 @@ Calendar commands:
         console.log(`ID:          ${chalk.dim(e.id)}`);
       } catch (err: any) {
         spinner.fail("Failed to get event");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -119,7 +120,7 @@ Calendar commands:
         spinner.succeed(chalk.green(`Event created — ID: ${chalk.cyan(res.data.id)}`));
       } catch (err: any) {
         spinner.fail("Failed to create event");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -145,7 +146,7 @@ Calendar commands:
         spinner.succeed(chalk.green("Event updated"));
       } catch (err: any) {
         spinner.fail("Failed to update event");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -166,7 +167,7 @@ Calendar commands:
         spinner.succeed(chalk.green("Event deleted"));
       } catch (err: any) {
         spinner.fail("Failed to delete event");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });

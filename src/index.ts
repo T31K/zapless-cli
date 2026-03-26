@@ -16,6 +16,7 @@ import { registerGithub } from "./commands/github";
 import { registerSlack } from "./commands/slack";
 import { registerNotion } from "./commands/notion";
 import { registerUpdate } from "./commands/update";
+import { registerUsage } from "./commands/usage";
 
 const VERSION = "0.4.2";
 
@@ -58,5 +59,6 @@ registerGithub(program);
 registerSlack(program);
 registerNotion(program);
 registerUpdate(program);
+registerUsage(program);
 
 program.parse();

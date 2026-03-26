@@ -1,3 +1,4 @@
+import { handleApiError } from '../errors';
 import { Command } from "commander";
 import axios from "axios";
 import chalk from "chalk";
@@ -64,7 +65,7 @@ GitHub commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list repos");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -95,7 +96,7 @@ GitHub commands:
         console.log(`URL:         ${chalk.blue(r.url)}`);
       } catch (err: any) {
         spinner.fail("Failed to get repo");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -134,7 +135,7 @@ GitHub commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list issues");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -161,7 +162,7 @@ GitHub commands:
         console.log(`Issue #${res.data.number}: ${chalk.blue(res.data.url)}`);
       } catch (err: any) {
         spinner.fail("Failed to create issue");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -200,7 +201,7 @@ GitHub commands:
         });
       } catch (err: any) {
         spinner.fail("Failed to list PRs");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
@@ -227,7 +228,7 @@ GitHub commands:
         console.log(`PR #${res.data.number}: ${chalk.blue(res.data.url)}`);
       } catch (err: any) {
         spinner.fail("Failed to create PR");
-        console.error(`${err.response?.data?.error ?? err.message}`);
+        handleApiError(err);
         process.exit(1);
       }
     });
